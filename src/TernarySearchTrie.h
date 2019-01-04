@@ -10,7 +10,7 @@
 #ifndef TERNARYSEARCHTRIE_H
 #define TERNARYSEARCHTRIE_H
 
-template <typename type>
+template <typename Type>
 class TernarySearchTrie {
 
 };

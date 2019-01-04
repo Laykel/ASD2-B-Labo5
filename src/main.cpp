@@ -11,15 +11,13 @@
 
 #include <cstdlib>
 #include <iostream>
+#include <set>
 
-/* #include "BinarySearchTree.h" */
-#include "AVLTree.h"
-
-// Constante définissant quelle structure de données utiliser
-#define DATA_STRUCTURE "SET"
+#include "Dictionary.h"
 
 using namespace std;
 
+// Utilise les classes mises en place pour le correcteur orthographique
 void test(string dictionaryFile, string textFile) {
    // Lire dictionary et le stocker (FileIO.h, Dictionary.h)
 
