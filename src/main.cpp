@@ -20,6 +20,8 @@ using namespace std;
 // Utilise les classes mises en place pour le correcteur orthographique
 void test(string dictionaryFile, string textFile) {
    // Lire dictionary et le stocker (FileIO.h, Dictionary.h)
+   Dictionary<set<string>> dict(dictionaryFile);
+   dict.print();
 
    // Lire texte et comparer chaque mot avec dictionnaire (FileIO.h, main.cpp)
 
@@ -32,16 +34,9 @@ void test(string dictionaryFile, string textFile) {
 }
 
 int main() {
-   { // Tester AVLTree
-      AVLTree<string, string> a;
-      a.put("name", "Valentine");
-      a.put("power", "flight");
-      a.put("color", "blue");
-
-      string value;
-      a.get("name", value);
-      cout << value << endl;
-   }
+   // TODO argument du programme pour le lancer avec une structure de données ou une autre
+   // Aucun argument lance les deux programmes.
+   test("../data/dictionary_lates.txt", "../data/input_lates.txt");
 
    return EXIT_SUCCESS;
 }
