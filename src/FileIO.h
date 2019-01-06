@@ -19,7 +19,7 @@
  * @param c Le caractère à tester
  * @return true si le caractère n'est pas alphabétique minuscule ou apostrophe
  */
-bool isNotAlphabetic(char c);
+bool isNotAlphabeticOrApostrophe(char c);
 
 /**
  * Permet de nettoyer une string en la convertissant en minuscules et en lui

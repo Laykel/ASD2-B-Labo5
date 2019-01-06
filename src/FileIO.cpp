@@ -9,15 +9,13 @@
 
 #include "FileIO.h"
 
-#include <fstream>
-#include <iostream>
 #include <algorithm>
 
 using namespace std;
 
 // Prédicat pour différencier les caractères appartenant à l'alphabet et
 // l'apostrophe de tous les autres caractères
-bool isNotAlphabetic(char c) {
+bool isNotAlphabeticOrApostrophe(char c) {
    // Code ASCII des lettres minuscules : 97-122
    // Code ASCII de l'apostrophe : 39
    if (((int) c >= 97 && (int) c <= 122) || (int) c == 39)
@@ -28,14 +26,20 @@ bool isNotAlphabetic(char c) {
 
 // Permet de nettoyer une string en la convertissant en minuscules et en lui
 // retirant les caractères non autorisés (voir isNotAlphabetic)
-string sanitize(string line) {
+string sanitize(string word) {
    // On convertit le mot en minuscules
-   for(size_t i = 0; i < line.length(); ++i) {
-       line[i] = (char) tolower(line[i]);
+   for (size_t i = 0; i < word.length(); ++i) {
+       word[i] = (char) tolower(word[i]);
    }
 
    // On retire tous les caractères qui ne sont pas alphabétiques ou un apostrophe
-   line.erase(remove_if(line.begin(), line.end(), isNotAlphabetic), line.end());
+   word.erase(remove_if(word.begin(), word.end(), isNotAlphabeticOrApostrophe), word.end());
 
-   return line;
+   // On retire les apostrophes avant et après le mot
+   if (!word.empty() and word.at(0) == '\'')
+      word.erase(0, 1);
+   if (!word.empty() and word.at(word.length() - 1) == '\'')
+      word.erase(word.length() - 1, 1);
+
+   return word;
 }

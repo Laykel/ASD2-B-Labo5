@@ -20,9 +20,12 @@
 
 template <typename Container> // Container doit être un conteneur proposant des
                               // itérateurs (au moins Input Iterators) et une
-                              // méthode insert(typename element)
+                              // méthode insert() avec un seul argument
 class Dictionary {
 public:
+   // On garde le constructeur par défaut fourni
+   Dictionary() = default;
+
    /**
     * Constructeur du dictionnaire, à partir du fichier en paramètre
     *
@@ -38,8 +41,14 @@ public:
 
          // Tant que des lignes nous sont retournées
          while (getline(df, line)) {
-            // On insère la ligne dans notre dictionnaire après l'avoir nettoyée
-            dict.insert(sanitize(line));
+            // On nettoie le mot
+            line = sanitize(line);
+
+            // On s'assure que la ligne n'est pas vide
+            if (!line.empty()) {
+               // On insère la ligne dans notre dictionnaire après l'avoir nettoyée
+               dict.insert(line);
+            }
          }
 
          // Fermeture du file stream
@@ -51,12 +60,22 @@ public:
    }
 
    /**
+    * Vérifie si le mot donné se trouve dans le dictionnaire
+    *
+    * @param word Le mot que l'on cherche
+    * @return true si le dictionnaire contient le mot, false sinon
+    */
+   bool contains(std::string word) {
+      return dict.find(word) != dict.end();
+   }
+
+   /**
     * TOREMOVE
     * Fonction de test pour afficher le contenu du conteneur
     */
    void print() {
       for (typename Container::iterator it = dict.begin(); it != dict.end(); ++it)
-         std::cout << *it << std::endl;
+         std::cout << *it << ", ";
    }
 
 private:
