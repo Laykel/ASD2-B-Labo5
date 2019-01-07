@@ -9,6 +9,7 @@
 
 #include "FileIO.h"
 
+#include <fstream>
 #include <algorithm>
 
 using namespace std;
@@ -42,4 +43,34 @@ string sanitize(string word) {
       word.erase(word.length() - 1, 1);
 
    return word;
+}
+
+// Fonction de lecture de fichier mot par mot qui effectue l'opération de la
+// fonction passée en paramètre
+void readFile(std::string filename, std::function<void(std::string)> function) {
+   // File stream sur le fichier
+   ifstream df(filename);
+
+   // On vérifie si le file stream est bien lié à un fichier ouvert
+   if (df.is_open()) {
+      string word;
+
+      // Tant que des mots nous sont retournés
+      while (df >> word) {
+         // On nettoie le mot
+         word = sanitize(word);
+
+         // On s'assure que la ligne n'est pas vide
+         if (!word.empty()) {
+            // On applique la fonction passée en paramètre
+            function(word);
+         }
+      }
+
+      // Fermeture du file stream
+      df.close();
+   } else {
+      // TODO exception or something else ?
+      /* cout << "Nom du fichier incorrect" << endl; */
+   }
 }

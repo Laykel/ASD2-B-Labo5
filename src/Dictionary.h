@@ -31,31 +31,10 @@ public:
     * @param filename Le chemin vers le fichier contenant les mots du dictionnaire
     */
    Dictionary(std::string filename) {
-      // File stream sur le fichier dictionnaire
-      std::ifstream df(filename);
-
-      // On vérifie si le file stream est bien lié à un fichier ouvert
-      if (df.is_open()) {
-         std::string line;
-
-         // Tant que des lignes nous sont retournées
-         while (getline(df, line)) {
-            // On nettoie le mot
-            line = sanitize(line);
-
-            // On s'assure que la ligne n'est pas vide
-            if (!line.empty()) {
-               // On insère la ligne dans notre dictionnaire après l'avoir nettoyée
-               dict.insert(line);
-            }
-         }
-
-         // Fermeture du file stream
-         df.close();
-      } else {
-         // TODO exception or something else ?
-         std::cout << "Nom du fichier incorrect" << std::endl;
-      }
+      // On lit le fichier dictionnaire et on insère chaque mot lu dans dict
+      readFile(filename, [this](std::string word) {
+                  dict.insert(word);
+               });
    }
 
    /**

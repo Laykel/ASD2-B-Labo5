@@ -11,6 +11,7 @@
 #define FILEIO_H
 
 #include <string>
+#include <functional>
 
 /**
  * Prédicat pour différencier les caractères appartenant à l'alphabet et
@@ -29,5 +30,14 @@ bool isNotAlphabeticOrApostrophe(char c);
  * @return le mot sans les caractères non autorisés
  */
 std::string sanitize(std::string line);
+
+/**
+ * Fonction de lecture de fichier mot par mot qui effectue l'opération de la
+ * fonction passée en paramètre
+ *
+ * @param filename Le chemin du fichier à lire
+ * @param function L'opération à effectuer sur les mots lus
+ */
+void readFile(std::string filename, std::function<void(std::string)> function);
 
 #endif
