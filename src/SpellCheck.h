@@ -4,13 +4,17 @@
  * Authors: Loris Gilliand, Mateo Tutic, Luc Wachter
  * Created on 06.01.2019
  *
- * Description:
+ * Description: Classe implémentant les méthodes nécessaires pour trouver les
+ *              mots mal orthographiés dans un fichier de texte à l'aide d'un
+ *              fichier dictionnaire, et pour écrire les variantes correctes
+ *              de ces mots dans un fichier de sortie.
  */
 
 #ifndef SPELLCHECK_H
 #define SPELLCHECK_H
 
-#include <vector>
+#include <iostream>
+#include <list>
 #include "Dictionary.h"
 #include "FileIO.h"
 

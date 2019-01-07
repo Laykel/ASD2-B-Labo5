@@ -14,7 +14,6 @@
 
 #include <string>
 #include <fstream>
-#include <iostream> // retirer si pas nécessaire
 
 #include "FileIO.h"
 
@@ -67,15 +66,6 @@ public:
     */
    bool contains(std::string word) {
       return dict.find(word) != dict.end();
-   }
-
-   /**
-    * TOREMOVE
-    * Fonction de test pour afficher le contenu du conteneur
-    */
-   void print() {
-      for (typename Container::iterator it = dict.begin(); it != dict.end(); ++it)
-         std::cout << *it << ", ";
    }
 
 private:

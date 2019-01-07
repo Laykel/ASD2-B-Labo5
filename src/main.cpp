@@ -11,8 +11,10 @@
 
 #include <cstdlib>
 #include <iostream>
-#include <set>
 #include <chrono>
+#include <ctime>
+#include <set>
+#include <unordered_set>
 
 #include "Dictionary.h"
 #include "SpellCheck.h"
@@ -27,7 +29,7 @@ void testDictionary(string dictionaryFile) {
    // Moment avant lecture
    t1 = chrono::high_resolution_clock::now();
    // Lecture du dictionnaire et chargement en mémoire
-   Dictionary<set<string>> dict(dictionaryFile);
+   Dictionary<unordered_set<string>> dict(dictionaryFile);
    // Moment après lecture
    t2 = chrono::high_resolution_clock::now();
 
@@ -45,16 +47,13 @@ void testSpellCheck(string dictionaryFile, string textFile) {
 
    // Moment avant correction
    t1 = chrono::high_resolution_clock::now();
-   SpellCheck<set<string>> sc(dictionaryFile, textFile);
+   SpellCheck<unordered_set<string>> sc(dictionaryFile, textFile, "../output.txt");
    // Moment après correction
    t2 = chrono::high_resolution_clock::now();
 
-   // Affichage du temps de correction en secondes
-   cout << chrono::duration_cast<chrono::milliseconds>(t2 - t1).count() / 1000
-        << "s" << endl;
-
-   sc.printMisspelled();
-   cout << endl;
+   // Affichage du temps de correction en millisecondes
+   cout << chrono::duration_cast<chrono::milliseconds>(t2 - t1).count()
+        << "ms" << endl;
 }
 
 int main(/*int argc, const char* argv[]*/) {
@@ -62,7 +61,8 @@ int main(/*int argc, const char* argv[]*/) {
    // Aucun argument lance les deux programmes.
 
    // Test du dictionnaire
-   cout << "Temps de chargement du dictionnaire en mémoire :" << endl;
+   cout << "Temps de chargement du dictionnaire en mémoire" << endl;
+   cout << "==============================================" << endl;
    cout << "Dictionnaire (6 mots) :" << endl;
    testDictionary("../data/dictionary_lates.txt");
    cout << "Dictionnaire (706824 mots) :" << endl;;
@@ -70,8 +70,11 @@ int main(/*int argc, const char* argv[]*/) {
    cout << endl;
 
    // Test de la correction orthographique
-   cout << "Temps d'exécution du correcteur orthographique :" << endl;
-   /* testSpellCheck("../data/dictionary.txt", "../data/input_lates.txt"); */
+   cout << "Temps d'exécution du correcteur orthographique" << endl;
+   cout << "==============================================" << endl;
+   cout << "Petit dictionnaire et petit texte :" << endl;
+   testSpellCheck("../data/dictionary.txt", "../data/input_lates.txt");
+   cout << "Grand dictionnaire et grand texte :" << endl;
    testSpellCheck("../data/dictionary.txt", "../data/input_sh.txt");
 
    return EXIT_SUCCESS;
