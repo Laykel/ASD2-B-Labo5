@@ -1,5 +1,7 @@
 ## Notes sur l'implémentation
 
+- Choix de `unordered_set` :
+
 - Taille des fichiers en entrée :
 ```
 >> du data/
@@ -24,3 +26,5 @@
   428 output/output_wiki.txt
  2200 total
 ```
+
+- Implémentation du TST
