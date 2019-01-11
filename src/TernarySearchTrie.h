@@ -10,9 +10,28 @@
 #ifndef TERNARYSEARCHTRIE_H
 #define TERNARYSEARCHTRIE_H
 
+#include <string>
+
 template <typename Type>
 class TernarySearchTrie {
+private:
+   struct Node {
+      Type value;
+      char character;
 
+      Node* left,  middle, right;
+   };
+
+public:
+   TernarySearchTrie();
+   ~TernarySearchTrie();
+
+   void insert(std::string word);
+
+   bool find(std::string word);
+
+private:
+   void rotateRight(Node* root);
 };
 
 #endif
