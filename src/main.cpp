@@ -16,6 +16,7 @@
 
 #include "Dictionary.h"
 #include "SpellCheck.h"
+#include "TernarySearchTrie.h"
 
 using namespace std;
 
@@ -28,6 +29,7 @@ void testDictionary(string dictionaryFile) {
    t1 = chrono::high_resolution_clock::now();
    // Lecture du dictionnaire et chargement en mémoire
    Dictionary<unordered_set<string>> dict(dictionaryFile);
+   /* Dictionary<TernarySearchTrie<bool>> dict(dictionaryFile); */
    // Moment après lecture
    t2 = chrono::high_resolution_clock::now();
 
@@ -45,6 +47,7 @@ void testSpellCheck(Dictionary<unordered_set<string>> dict, string textFile, str
    t1 = chrono::high_resolution_clock::now();
    // Application de la correction orthographique
    SpellCheck<unordered_set<string>> sc(dict, textFile, outputFile);
+   /* SpellCheck<TernarySearchTrie<bool>> sc(dict, textFile, outputFile); */
    // Moment après correction
    t2 = chrono::high_resolution_clock::now();
 
