@@ -10,6 +10,7 @@
 #include "FileIO.h"
 
 #include <fstream>
+#include <iostream>
 #include <algorithm>
 
 using namespace std;
@@ -70,7 +71,7 @@ void readFile(std::string filename, std::function<void(std::string)> function) {
       // Fermeture du file stream
       df.close();
    } else {
-      // TODO exception or something else ?
-      /* cout << "Nom du fichier incorrect" << endl; */
+      cerr << "Erreur lors de la lecture du fichier '"
+           << filename << "'." << std::endl;
    }
 }

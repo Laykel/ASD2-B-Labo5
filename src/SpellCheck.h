@@ -146,7 +146,8 @@ private:
          }
       }
       else {
-         // TODO Handle error
+         std::cerr << "Erreur lors de l'écriture dans le fichier '"
+                   << filename << "'." << std::endl;
       }
 
       output.close();

@@ -12,7 +12,6 @@
 #include <cstdlib>
 #include <iostream>
 #include <chrono>
-#include <ctime>
 #include <unordered_set>
 
 #include "Dictionary.h"
