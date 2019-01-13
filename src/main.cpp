@@ -38,13 +38,13 @@ void testDictionary(string dictionaryFile) {
 
 // Utilise les classes mises en place pour tester correcteur orthographique
 // Affiche le temps de correction en microsecondes
-void testSpellCheck(string dictionaryFile, string textFile, string outputFile) {
+void testSpellCheck(Dictionary<unordered_set<string>> dict, string textFile, string outputFile) {
    chrono::high_resolution_clock::time_point t1, t2;
 
    // Moment avant correction
    t1 = chrono::high_resolution_clock::now();
    // Application de la correction orthographique
-   SpellCheck<unordered_set<string>> sc(dictionaryFile, textFile, outputFile);
+   SpellCheck<unordered_set<string>> sc(dict, textFile, outputFile);
    // Moment après correction
    t2 = chrono::high_resolution_clock::now();
 
@@ -65,14 +65,15 @@ int main(/*int argc, const char* argv[]*/) {
    cout << endl;
 
    // Test de la correction orthographique
+   Dictionary<unordered_set<string>> dict("data/dictionary.txt");
    cout << "Temps d'exécution du correcteur orthographique" << endl;
    cout << "==============================================" << endl;
    cout << "Petit texte (Lates) : ";
-   testSpellCheck("data/dictionary.txt", "data/input_lates.txt", "output/output_lates.txt");
-   cout << "Sherlock Holmes : ";
-   testSpellCheck("data/dictionary.txt", "data/input_sh.txt", "output/output_sh.txt");
+   testSpellCheck(dict, "data/input_lates.txt", "output/output_lates.txt");
    cout << "Wikipedia : ";
-   testSpellCheck("data/dictionary.txt", "data/input_wikipedia.txt", "output/output_wiki.txt");
+   testSpellCheck(dict, "data/input_wikipedia.txt", "output/output_wiki.txt");
+   cout << "Sherlock Holmes : ";
+   testSpellCheck(dict, "data/input_sh.txt", "output/output_sh.txt");
 
    return EXIT_SUCCESS;
 }

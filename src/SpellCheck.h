@@ -31,10 +31,8 @@ public:
     * @param dictionaryFile Le chemin vers le fichier dictionnaire
     * @param textFile Le chemin vers le fichier de texte
     */
-   SpellCheck(std::string dictionaryFile, std::string textFile, std::string outputFile) {
-      // On construit le dictionnaire et on l'affecte par copie
-      dict = Dictionary<Container>(dictionaryFile);
-
+   SpellCheck(const Dictionary<Container>& dict, std::string textFile, std::string outputFile)
+   : dict(dict) {
       // On enregistre tous les mots mal orthographiés
       findMisspelledWords(textFile);
 
@@ -154,7 +152,7 @@ private:
    }
 
 private:
-   Dictionary<Container> dict;
+   const Dictionary<Container>& dict;
    std::list<std::string> misspelled;
 };
 

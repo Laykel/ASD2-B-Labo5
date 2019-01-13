@@ -43,7 +43,7 @@ public:
     * @param word Le mot que l'on cherche
     * @return true si le dictionnaire contient le mot, false sinon
     */
-   bool contains(std::string word) {
+   bool contains(std::string word) const {
       return dict.find(word) != dict.end();
    }
 
