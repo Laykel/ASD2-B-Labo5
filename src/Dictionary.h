@@ -41,7 +41,7 @@ public:
     * @return true si le dictionnaire contient le mot, false sinon
     */
    bool contains(std::string word) const {
-      return dict.find(word) != dict.end();
+      return dict.contains(word);
    }
 
 private:

@@ -9,45 +9,50 @@
  *              l'aide des arguments à main().
  */
 
-#include <cstdlib>
 #include <iostream>
 #include <chrono>
-#include <unordered_set>
 
+// Extension de unordered_set<string> pour faciliter nos tests
+#include "StringHashTable.h"
+#include "TernarySearchTrie.h"
 #include "Dictionary.h"
 #include "SpellCheck.h"
-#include "TernarySearchTrie.h"
 
 using namespace std;
 
+// Définition de la structure de données à utiliser pour le dictionnaire
+using dictionaryType = StringHashTable;
+/* using dictionaryType = TernarySearchTrie<bool>; */
+
 // Teste le temps de chargement du dictionnaire
 // Affiche le temps de chargement en microsecondes
-void testDictionary(string dictionaryFile) {
+Dictionary<dictionaryType> testDictionary(string dictionaryFile) {
    chrono::high_resolution_clock::time_point t1, t2;
 
    // Moment avant lecture
    t1 = chrono::high_resolution_clock::now();
    // Lecture du dictionnaire et chargement en mémoire
-   Dictionary<unordered_set<string>> dict(dictionaryFile);
-   /* Dictionary<TernarySearchTrie<bool>> dict(dictionaryFile); */
+   Dictionary<dictionaryType> dict(dictionaryFile);
    // Moment après lecture
    t2 = chrono::high_resolution_clock::now();
 
    // Affichage du temps de lecture en microsecondes et en millisecondes
    cout << chrono::duration_cast<chrono::milliseconds>(t2 - t1).count() << "ms"
         << endl;
+
+   return dict;
 }
 
 // Utilise les classes mises en place pour tester correcteur orthographique
 // Affiche le temps de correction en microsecondes
-void testSpellCheck(Dictionary<unordered_set<string>> dict, string textFile, string outputFile) {
+void testSpellCheck(Dictionary<dictionaryType> dict, string textFile, string outputFile) {
    chrono::high_resolution_clock::time_point t1, t2;
 
    // Moment avant correction
    t1 = chrono::high_resolution_clock::now();
    // Application de la correction orthographique
-   SpellCheck<unordered_set<string>> sc(dict, textFile, outputFile);
-   /* SpellCheck<TernarySearchTrie<bool>> sc(dict, textFile, outputFile); */
+   SpellCheck<dictionaryType> sc(dict, textFile);
+   sc.writeToFile(outputFile); // Écriture des variantes dans le fichier
    // Moment après correction
    t2 = chrono::high_resolution_clock::now();
 
@@ -56,19 +61,16 @@ void testSpellCheck(Dictionary<unordered_set<string>> dict, string textFile, str
         << "ms" << endl;
 }
 
-int main(/*int argc, const char* argv[]*/) {
-   // TODO argument du programme pour le lancer avec une structure de données ou une autre
-   // Aucun argument lance les deux programmes.
-
+int main() {
    // Test du dictionnaire
    cout << "Temps de chargement du dictionnaire en mémoire" << endl;
    cout << "==============================================" << endl;
    cout << "Dictionnaire (706824 mots) : ";
-   testDictionary("data/dictionary.txt");
+   // Afficher le temps de chargement du dictionnaire et le retourner
+   Dictionary<dictionaryType> dict = testDictionary("data/dictionary.txt");
    cout << endl;
 
    // Test de la correction orthographique
-   Dictionary<unordered_set<string>> dict("data/dictionary.txt");
    cout << "Temps d'exécution du correcteur orthographique" << endl;
    cout << "==============================================" << endl;
    cout << "Petit texte (Lates) : ";
