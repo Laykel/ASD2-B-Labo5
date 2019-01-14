@@ -16,11 +16,12 @@
 #include <iostream>
 #include <list>
 #include "Dictionary.h"
-#include "FileIO.h"
 
-template <typename Container> // Container doit être un conteneur proposant des
-                              // itérateurs (au moins Input Iterators) et une
-                              // méthode insert() avec un seul argument
+#define NBR_VARIANT_FUNCTIONS 4
+
+template <typename Container> // Container doit être un conteneur proposant une
+                              // méthode insert(string) et une méthode
+                              // bool contains(string)
 class SpellCheck {
 public:
    /**
@@ -125,8 +126,10 @@ private:
     * @param filename Le chemin vers le fichier de sortie
     */
    void writeToFile(std::string filename) {
+      // File stream d'écriture
       std::ofstream output(filename);
 
+      // On vérifie si le file stream est bien lié à un fichier ouvert
       if (output.is_open()) {
          std::list<std::string> variants; // Vecteur de variantes orthographiques
          // Pour chaque mot dans la liste de mots mal orthographiés

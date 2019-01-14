@@ -17,14 +17,11 @@
 
 #include "FileIO.h"
 
-template <typename Container> // Container doit être un conteneur proposant des
-                              // itérateurs (au moins Input Iterators) et une
-                              // méthode insert() avec un seul argument
+template <typename Container> // Container doit être un conteneur proposant une
+                              // méthode insert(string) et une méthode
+                              // bool contains(string)
 class Dictionary {
 public:
-   // On garde le constructeur par défaut fourni
-   Dictionary() = default;
-
    /**
     * Constructeur du dictionnaire, à partir du fichier en paramètre
     *
