@@ -1,12 +1,20 @@
 ## Notes sur l'implémentation
 
-- Choix de `unordered_set` :
+- Choix de `unordered_set` : nous avions besoin d'une table de symboles avec de très bonnes performances en insertion et en recherche. Les tables de hachage nous permettent de faire ces opérations en temps constants (amorti). C'est meilleur que ce que `set` peut nous proposer avec ses arbres binaire équilibrés.
 
 - On lit le dictionnaire de la même manière que le fichier d'entrée, pour prévoir le cas où un dictionnaire différent serait utilisé, avec des majuscules ou d'autres caractères.
 
-- Dans le set, il n’y a que 637’850 entrées, alors que le dictionnaire contient 706’824 mots. Cela est dû aux doublons qui résultent de notre méthode de nettoyage. (J’ai vérifié et il y a bien le bon nombre de doublons.)
+- Cette manière, c'est de lire mot par mot, convertir en minuscule, retirer les caractères non autorisés, puis retirer tout apostrophe en première ou dernière position du mot. Nous ne nous occupons pas des traits d'union, qui seront supprimés à la fois dans le dictionnaire et dans les mots du texte.
+
+- Dans le set, il n’y a que 637’850 entrées, alors que le dictionnaire contient 706’823 mots. Cela est dû aux doublons qui résultent de notre méthode de nettoyage. (J’ai vérifié et il y a bien le bon nombre de doublons.)
+
+- Nous n'enregistrons pas les variantes, parce que ce serait lent et peu utile. En revanche, nous avons séparé les différentes règles de génération de variantes en autant de méthodes pour permettre à une application implémentant notre correcteur (haha) de récupérer les variantes précises.
+
+- En outre, nous avons fait en sorte que l'ajout d'autres fonctions de génération de variantes plus avancées soit extrêmement simple. (Création de la méthode, incrémentation de `NBR_VARIANT_FUNCTIONS`, ajout de la méthode dans le tableau `variantFunc`.)
 
 - Implémentation du TST
+
+- Hashtables can also be used in place of ternary search trees for mapping strings to values. However, hash maps also frequently use more memory than ternary search trees (but not as much as tries). Additionally, hash maps are typically slower at reporting a string that is not in the same data structure, because it must compare the entire string rather than just the first few characters. There is some evidence that shows ternary search trees running faster than hash maps.[1] Additionally, hash maps do not allow for many of the uses of ternary search trees, such as near-neighbor lookups. 
 
 - Taille des fichiers en entrée :
 ```
@@ -29,22 +37,22 @@
 >> wc -l output/*
    53 output/output_lates.txt
  1719 output/output_sh.txt
+    0 output/output_simple.txt
   428 output/output_wiki.txt
  2200 total
 ```
 
 - Complexités, UML ??
-- Nous n'enregistrons pas les variantes, parce que ce serait lent et peu utile.
 - Pourquoi on utilise une string avec les caractères autorisés dans generateAllVariants, mais pas dans FileIO.cpp.
 
-   // Lire texte et comparer chaque mot avec dictionnaire (FileIO.h, SpellCheck.h)
+- Lire texte et comparer chaque mot avec dictionnaire (FileIO.h, SpellCheck.h)
 
-      // Si le mot est dans le dictionnaire, ne rien faire
-      // Sinon, stocker le mot dans une liste de mots incorrects (SpellCheck.h)
+  - Si le mot est dans le dictionnaire, ne rien faire
+  - Sinon, stocker le mot dans une liste de mots incorrects (SpellCheck.h)
 
-   // Parcourir la liste de mots incorrects et effectuer les 4 modifications
-   // pour chaque caractère, comparer le mot modifié avec dictionnaire et stocker
-   // dans fichier toutes les corrections possibles (SpellCheck.h, FileIO.h)
+- Parcourir la liste de mots incorrects et effectuer les 4 modifications
+- pour chaque caractère, comparer le mot modifié avec dictionnaire et stocker
+- dans fichier toutes les corrections possibles (SpellCheck.h, FileIO.h)
 
 *lates
 1:ates
