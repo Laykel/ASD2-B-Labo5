@@ -5,7 +5,7 @@
  * Created on 14.01.2019
  *
  * Description: Extension de la classe unordered_set pour nous permettre d'utiliser
- *              la même méthode contains() que sur notre TST
+ *              la même méthode contains() que sur notre TernarySearchTrie.
  */
 
 #ifndef STRINGHASHTABLE_H

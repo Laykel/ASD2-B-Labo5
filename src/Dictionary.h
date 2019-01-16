@@ -27,9 +27,9 @@ public:
     *
     * @param filename Le chemin vers le fichier contenant les mots du dictionnaire
     */
-   Dictionary(std::string filename) {
+   Dictionary(const std::string filename) {
       // On lit le fichier dictionnaire et on insère chaque mot lu dans dict
-      readFile(filename, [this](std::string word) {
+      readFile(filename, [this](const std::string word) {
                   dict.insert(word);
                });
    }
@@ -40,7 +40,7 @@ public:
     * @param word Le mot que l'on cherche
     * @return true si le dictionnaire contient le mot, false sinon
     */
-   bool contains(std::string word) const {
+   bool contains(const std::string& word) const {
       return dict.contains(word);
    }
 

@@ -17,6 +17,8 @@
 #include <list>
 #include "Dictionary.h"
 
+// On définit ici le nombre de fonctions à appliquer sur les mots mal
+// orthographiés pour générer leurs variantes
 #define NBR_VARIANT_FUNCTIONS 4
 
 template <typename Container> // Container doit être un conteneur proposant une
@@ -32,7 +34,7 @@ public:
     * @param dict Une référence constante vers le dictionnaire
     * @param textFile Le chemin vers le fichier de texte
     */
-   SpellCheck(const Dictionary<Container>& dict, std::string textFile)
+   SpellCheck(const Dictionary<Container>& dict, const std::string textFile)
    : dict(dict) {
       // On enregistre tous les mots mal orthographiés
       findMisspelledWords(textFile);
@@ -163,13 +165,14 @@ public:
     *
     * @param filename Le chemin vers le fichier de sortie
     */
-   void writeToFile(std::string filename) {
+   void writeToFile(const std::string filename) {
       // File stream d'écriture
       std::ofstream output(filename);
 
       // On vérifie si le file stream est bien lié à un fichier ouvert
       if (output.is_open()) {
          std::list<std::string> variants; // Vecteur de variantes orthographiques
+
          // Pour chaque mot dans la liste de mots mal orthographiés
          for (std::string word : misspelled) {
             // On écrit le mot dans le fichier de sortie
@@ -185,7 +188,8 @@ public:
          }
       }
       else {
-         std::cerr << "Erreur lors de l'écriture dans le fichier '"
+         std::cerr << std::endl
+                   << "Erreur lors de l'écriture dans le fichier '"
                    << filename << "'." << std::endl;
       }
 
@@ -199,7 +203,7 @@ private:
     *
     * @param textFile Le chemin vers le fichier de texte
     */
-   void findMisspelledWords(std::string filename) {
+   void findMisspelledWords(const std::string filename) {
       // On lit le fichier de texte et on insère chaque mot ne se trouvant pas
       // dans le dictionnaire dans la liste des mots mal orthographiés
       readFile(filename, [this](std::string word) {
@@ -218,7 +222,7 @@ private:
     * @param word Le mot dont les variantes doivent être générées
     * @return un vecteur contenant toutes les variantes préfixées de leur numéro
     */
-   std::list<std::string> generateAllVariants(std::string word) {
+   std::list<std::string> generateAllVariants(const std::string word) {
       std::list<std::string> variants;
 
       // On itère sur le nombre de fonction génératrices de variantes
@@ -240,6 +244,7 @@ private:
    const std::string allowedCharacters = "abcdefghijklmnopqrstuvwxyz'";
 
    // Tableau de fonctions génératrices de variantes orthographiques
+   // Ajouter ici, et modifier la constante NBR_VARIANT_FUNCTIONS
    std::function<std::list<std::string>(std::string)> variantFunc[NBR_VARIANT_FUNCTIONS] = {
       std::bind(&SpellCheck::variant1, this, std::placeholders::_1),
       std::bind(&SpellCheck::variant2, this, std::placeholders::_1),

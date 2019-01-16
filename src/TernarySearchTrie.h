@@ -12,12 +12,12 @@
 
 #include <string>
 
-template <typename Type>
+/* template <typename Type> */
 class TernarySearchTrie {
 private:
    // Élément (noeud) du Trie
    struct Node {
-      bool value;     // TODO Valeur en cas de match
+      bool value;     // Valeur du noeud (true si fin de mot, false sinon)
       char character; // Caractère que le noeud représente
 
       // Pointeurs vers les sous-arbres
@@ -44,6 +44,11 @@ public:
    }
 
 private:
+   /**
+    * Méthode récursive de suppression de sous-arbres
+    *
+    * @param node Le noeud à supprimer avec ses sous-arbres
+    */
    void deleteSubTree(Node* node) {
       if (node == nullptr)
          return;
@@ -56,11 +61,24 @@ private:
    }
 
 public:
+   /**
+    * Méthode d'insertion du mot donné
+    *
+    * @param word Le mot à insérer
+    */
    void insert(std::string word) {
       root = put(root, word, 0);
    }
 
 private:
+   /*
+    * Méthode récursive d'ajout de symbole
+    *
+    * @param node
+    * @param word
+    * @param d
+    * @returns ...
+    */
    Node* put(Node* node, std::string word, size_t d) {
       char c = word.at(d);
 

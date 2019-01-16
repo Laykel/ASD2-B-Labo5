@@ -22,7 +22,7 @@ using namespace std;
 
 // Définition de la structure de données à utiliser pour le dictionnaire
 using dictionaryType = StringHashTable;
-/* using dictionaryType = TernarySearchTrie<bool>; */
+/* using dictionaryType = TernarySearchTrie; */
 
 // Teste le temps de chargement du dictionnaire
 // Affiche le temps de chargement en microsecondes
@@ -36,7 +36,7 @@ Dictionary<dictionaryType> testDictionary(string dictionaryFile) {
    // Moment après lecture
    t2 = chrono::high_resolution_clock::now();
 
-   // Affichage du temps de lecture en microsecondes et en millisecondes
+   // Affichage du temps de lecture en millisecondes
    cout << chrono::duration_cast<chrono::milliseconds>(t2 - t1).count() << "ms"
         << endl;
 
@@ -58,7 +58,8 @@ void testSpellCheck(Dictionary<dictionaryType> dict, string textFile, string out
 
    // Affichage du temps de correction en millisecondes
    cout << chrono::duration_cast<chrono::milliseconds>(t2 - t1).count()
-        << "ms" << endl;
+        << "ms" << endl
+        << sc.getMisspelledWords().size() << " mots mal orthographiés." << endl;
 }
 
 int main() {
@@ -75,8 +76,16 @@ int main() {
    cout << "==============================================" << endl;
    cout << "Petit texte (Lates) : ";
    testSpellCheck(dict, "data/input_lates.txt", "output/output_lates.txt");
+   cout << endl;
+
+   cout << "Petit texte (Simple) : ";
+   testSpellCheck(dict, "data/input_simple.txt", "output/output_simple.txt");
+   cout << endl;
+
    cout << "Wikipedia : ";
    testSpellCheck(dict, "data/input_wikipedia.txt", "output/output_wiki.txt");
+   cout << endl;
+
    cout << "Sherlock Holmes : ";
    testSpellCheck(dict, "data/input_sh.txt", "output/output_sh.txt");
 

@@ -71,7 +71,8 @@ void readFile(std::string filename, std::function<void(std::string)> function) {
       // Fermeture du file stream
       df.close();
    } else {
-      cerr << "Erreur lors de la lecture du fichier '"
+      cerr << std::endl
+           << "Erreur lors de la lecture du fichier '"
            << filename << "'." << std::endl;
    }
 }
