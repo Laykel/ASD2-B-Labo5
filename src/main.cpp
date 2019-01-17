@@ -21,8 +21,8 @@
 using namespace std;
 
 // Définition de la structure de données à utiliser pour le dictionnaire
-using dictionaryType = StringHashTable;
-/* using dictionaryType = TernarySearchTrie; */
+//using dictionaryType = StringHashTable;
+using dictionaryType = TernarySearchTrie;
 
 // Teste le temps de chargement du dictionnaire
 // Affiche le temps de chargement en microsecondes
@@ -70,7 +70,7 @@ int main() {
    // Afficher le temps de chargement du dictionnaire et le retourner
    Dictionary<dictionaryType> dict = testDictionary("data/dictionary.txt");
    cout << endl;
-
+/*
    // Test de la correction orthographique
    cout << "Temps d'exécution du correcteur orthographique" << endl;
    cout << "==============================================" << endl;
@@ -87,7 +87,7 @@ int main() {
    cout << endl;
 
    cout << "Sherlock Holmes : ";
-   testSpellCheck(dict, "data/input_sh.txt", "output/output_sh.txt");
+   testSpellCheck(dict, "data/input_sh.txt", "output/output_sh.txt");*/
 
    return EXIT_SUCCESS;
 }
