@@ -4,9 +4,9 @@
  * Authors: Loris Gilliand, Mateo Tutic, Luc Wachter
  * Created on 04.01.2019
  *
- * Description: Classe implémentant un dictionnaire dont le conteneur est générique
- *              Le type 'Container' doit implémenter la fonction insert() avec un
- *              seul paramètre.
+ * Description: Classe implémentant un dictionnaire dont le conteneur est générique.
+ *              Le type 'Container' doit implémenter les fonctions insert() et
+ *              contains() avec un seul paramètre de type string.
  */
 
 #ifndef DICTIONARY_H
