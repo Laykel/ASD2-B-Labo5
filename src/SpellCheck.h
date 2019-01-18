@@ -34,7 +34,7 @@ public:
     * @param dict Une référence constante vers le dictionnaire
     * @param textFile Le chemin vers le fichier de texte
     */
-   SpellCheck(const Dictionary<Container>& dict, const std::string textFile)
+   SpellCheck(const Dictionary<Container>& dict, const std::string& textFile)
    : dict(dict) {
       // On enregistre tous les mots mal orthographiés
       findMisspelledWords(textFile);
@@ -165,7 +165,7 @@ public:
     *
     * @param filename Le chemin vers le fichier de sortie
     */
-   void writeToFile(const std::string filename) {
+   void writeToFile(const std::string& filename) {
       // File stream d'écriture
       std::ofstream output(filename);
 
@@ -203,7 +203,7 @@ private:
     *
     * @param textFile Le chemin vers le fichier de texte
     */
-   void findMisspelledWords(const std::string filename) {
+   void findMisspelledWords(const std::string& filename) {
       // On lit le fichier de texte et on insère chaque mot ne se trouvant pas
       // dans le dictionnaire dans la liste des mots mal orthographiés
       readFile(filename, [this](std::string word) {
@@ -222,7 +222,7 @@ private:
     * @param word Le mot dont les variantes doivent être générées
     * @return un vecteur contenant toutes les variantes préfixées de leur numéro
     */
-   std::list<std::string> generateAllVariants(const std::string word) {
+   std::list<std::string> generateAllVariants(const std::string& word) {
       std::list<std::string> variants;
 
       // On itère sur le nombre de fonction génératrices de variantes

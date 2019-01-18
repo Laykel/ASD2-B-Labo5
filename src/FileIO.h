@@ -38,6 +38,6 @@ std::string sanitize(std::string line);
  * @param filename Le chemin du fichier à lire
  * @param function L'opération à effectuer sur les mots lus
  */
-void readFile(std::string filename, std::function<void(std::string)> function);
+void readFile(const std::string& filename, std::function<void(std::string)> function);
 
 #endif

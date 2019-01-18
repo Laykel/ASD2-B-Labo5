@@ -15,7 +15,7 @@
 
 class StringHashTable : public std::unordered_set<std::string> {
 public:
-   bool contains(std::string word) const {
+   bool contains(const std::string& word) const {
       return find(word) != end();
    }
 };

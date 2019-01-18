@@ -12,7 +12,6 @@
 #include <iostream>
 #include <chrono>
 
-// Extension de unordered_set<string> pour faciliter nos tests
 #include "StringHashTable.h"
 #include "TernarySearchTrie.h"
 #include "Dictionary.h"
@@ -21,8 +20,8 @@
 using namespace std;
 
 // Définition de la structure de données à utiliser pour le dictionnaire
-using dictionaryType = StringHashTable;
-/* using dictionaryType = TernarySearchTrie; */
+//using dictionaryType = StringHashTable;
+using dictionaryType = TernarySearchTrie;
 
 // Teste le temps de chargement du dictionnaire
 // Affiche le temps de chargement en microsecondes

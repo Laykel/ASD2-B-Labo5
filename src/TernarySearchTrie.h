@@ -17,13 +17,19 @@ class TernarySearchTrie {
 private:
    // Élément (noeud) du Trie
    struct Node {
-      bool value;     // Valeur du noeud (true si fin de mot, false sinon)
       char character; // Caractère que le noeud représente
+      bool value;     // Valeur du noeud (true si fin de mot, false sinon)
 
       // Pointeurs vers les sous-arbres
       Node* left;   // Enfant de caractère plus petit
-      Node* middle; // Enfant de caractère suivant
       Node* right;  // Enfant de caractère plus grand
+      Node* middle; // Enfant de caractère suivant
+
+      int nodeHeight; // Hauteur du sous-arbre dont ce noeud est la racine
+
+      // Constructeur du noeud
+      Node(char c) : character(c), value(false), left(nullptr), right(nullptr),
+                     middle(nullptr), nodeHeight(0) {}
    };
 
    // Racine du Trie
@@ -66,7 +72,7 @@ public:
     *
     * @param word Le mot à insérer
     */
-   void insert(std::string word) {
+   void insert(const std::string& word) {
       root = put(root, word, 0);
    }
 
@@ -79,12 +85,11 @@ private:
     * @param d
     * @returns ...
     */
-   Node* put(Node* node, std::string word, size_t d) {
+   Node* put(Node* node, const std::string& word, size_t d) {
       char c = word.at(d);
 
       if (node == nullptr) {
-         node = new Node();
-         node->character = c;
+         node = new Node(c);
       }
 
       if (c < node->character)
@@ -96,15 +101,48 @@ private:
       else
          node->value = true;
 
-      return node;
+      return restoreBalance(node);
+   }
+
+   // HELPER: Mise à jour de la hauteur d'un sous-arbre à partir des hauteurs de ses enfants
+   void updateNodeHeight(Node* node) {
+      node->nodeHeight = std::max(height(node->right), height(node->left)) + 1;
+   }
+
+   int balance(Node* x) {
+      if(x == nullptr)
+         return 0;
+
+      return height(x->left) - height(x->right);
+   }
+
+   Node* restoreBalance(Node* x) {
+      if(balance(x) < -1) // left < right-1
+      {
+         if (balance(x->right)>0)
+            x->right = rotateRight( x->right );
+         x = rotateLeft(x);
+      }
+      else if( balance(x) > 1) // left > right+1
+      {
+         if ( balance(x->left) < 0 )
+            x->left = rotateLeft( x->left );
+         x = rotateRight(x);
+      }
+      else
+         updateNodeHeight(x);
+
+      return x;
+   }
+
+   int height(Node* x) {
+      if (x == nullptr)
+         return -1;
+      return x->nodeHeight;
    }
 
 public:
-   bool contains(std::string word) const {
-      return get(word);
-   }
-
-   bool get(std::string word) const {
+   bool contains(const std::string& word) const {
       Node* node = get(root, word, 0);
 
       if (node == nullptr)
@@ -114,7 +152,7 @@ public:
    }
 
 private:
-   Node* get(Node* node, std::string word, size_t d) const {
+   Node* get(Node* node, const std::string& word, size_t d) const {
       if (node == nullptr)
          return nullptr;
 
@@ -131,7 +169,33 @@ private:
    }
 
 private:
-   void rotateRight(Node* root);
+   //
+   // AVL: rotation droite avec mise à jour des tailles et hauteurs
+   //
+   Node* rotateRight(Node* x) {
+      Node* y = x->left;
+      x->left = y->right;
+      y->right = x;
+
+      updateNodeHeight(x);
+      updateNodeHeight(y);
+
+      return y;
+   }
+
+   //
+   // AVL: rotation gauche avec mise à jour des tailles et hauteurs
+   //
+   Node* rotateLeft(Node* x) {
+      Node* y = x->right;
+      x->right = y->left;
+      y->left = x;
+
+      updateNodeHeight(x);
+      updateNodeHeight(y);
+
+      return y;
+   }
 };
 
 #endif

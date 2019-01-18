@@ -4,9 +4,9 @@
  * Authors: Loris Gilliand, Mateo Tutic, Luc Wachter
  * Created on 04.01.2019
  *
- * Description: Classe implémentant un dictionnaire dont le conteneur est générique
- *              Le type 'Container' doit implémenter la fonction insert() avec un
- *              seul paramètre.
+ * Description: Classe implémentant un dictionnaire dont le conteneur est générique.
+ *              Le type 'Container' doit implémenter les fonctions insert() et
+ *              contains() avec un seul paramètre de type string.
  */
 
 #ifndef DICTIONARY_H
@@ -27,9 +27,9 @@ public:
     *
     * @param filename Le chemin vers le fichier contenant les mots du dictionnaire
     */
-   Dictionary(const std::string filename) {
+   Dictionary(const std::string& filename) {
       // On lit le fichier dictionnaire et on insère chaque mot lu dans dict
-      readFile(filename, [this](const std::string word) {
+      readFile(filename, [this](const std::string& word) {
                   dict.insert(word);
                });
    }

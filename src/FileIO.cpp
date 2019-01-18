@@ -48,7 +48,7 @@ string sanitize(string word) {
 
 // Fonction de lecture de fichier mot par mot qui effectue l'opération de la
 // fonction passée en paramètre
-void readFile(std::string filename, std::function<void(std::string)> function) {
+void readFile(const string& filename, function<void(std::string)> function) {
    // File stream sur le fichier
    ifstream df(filename);
 
