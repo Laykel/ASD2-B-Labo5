@@ -169,7 +169,7 @@ TernarySearchTrie::Node* TernarySearchTrie::restoreBalance(TernarySearchTrie::No
    return node;
 }
 
-// Rotation droite avec mise à jour des tailles et hauteurs
+// Rotation droite avec mise à jour des hauteurs
 TernarySearchTrie::Node* TernarySearchTrie::rotateRight(TernarySearchTrie::Node* x) {
    Node* y = x->left;
    x->left = y->right;
@@ -181,7 +181,7 @@ TernarySearchTrie::Node* TernarySearchTrie::rotateRight(TernarySearchTrie::Node*
    return y;
 }
 
-// Rotation gauche avec mise à jour des tailles et hauteurs
+// Rotation gauche avec mise à jour des hauteurs
 TernarySearchTrie::Node* TernarySearchTrie::rotateLeft(TernarySearchTrie::Node* x) {
    Node* y = x->right;
    x->right = y->left;
