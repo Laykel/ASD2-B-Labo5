@@ -53,7 +53,7 @@ Dictionary<dictionaryType> testDictionary(const string& dictionaryFile) {
    return dict;
 }
 
-// Utilise les classes mises en place pour tester correcteur orthographique
+// Utilise les classes mises en place pour tester le correcteur orthographique
 // Affiche le temps de correction en microsecondes
 void testSpellCheck(const Dictionary<dictionaryType>& dict, const string& textFile,
                     const string& outputFile) {
