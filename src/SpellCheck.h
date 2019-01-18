@@ -201,7 +201,7 @@ private:
     * Lit le fichier de texte mot par mot et enregistre chaque mot non présent
     * dans le dictionnaire dans la liste misspelled
     *
-    * @param textFile Le chemin vers le fichier de texte
+    * @param filename Le chemin vers le fichier de texte
     */
    void findMisspelledWords(const std::string& filename) {
       // On lit le fichier de texte et on insère chaque mot ne se trouvant pas
