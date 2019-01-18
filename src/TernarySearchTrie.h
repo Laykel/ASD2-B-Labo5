@@ -50,156 +50,115 @@ public:
    /**
     * Destructeur
     */
-   ~TernarySearchTrie() {
-      deleteSubTree(root);
-   }
+   ~TernarySearchTrie();
 
 private:
    /**
-    * Méthode récursive de suppression de sous-arbres
+    * Suppression récursive de sous-arbre
     *
     * @param node Le noeud à supprimer avec ses sous-arbres
+    * @see inspiré de AVLTree.h
     */
-   void deleteSubTree(Node* node) {
-      if (node == nullptr)
-         return;
-
-      deleteSubTree(node->left);
-      deleteSubTree(node->middle);
-      deleteSubTree(node->right);
-
-      delete node;
-   }
+   void deleteSubTree(Node* node);
 
 public:
    /**
-    * Méthode d'insertion du mot donné
+    * Insertion de mot
     *
     * @param word Le mot à insérer
+    * @see inspiré des slides de Robert Sedgewick
     */
-   void insert(const std::string& word) {
-      root = put(root, word, 0);
-   }
+   void insert(const std::string& word);
 
 private:
    /*
-    * Méthode récursive d'ajout de symbole
+    * Insertion récursive de mot
     *
-    * @param node
-    * @param word
-    * @param d
-    * @returns ...
+    * @param node Le noeud sur lequel on commence l'insertion
+    * @param word Le mot à insérer
+    * @param idx  L'index de la lettre du mot en train d'être insérée
+    * @returns la nouvelle racine de l'arbre, après ré-équilibrage
+    * @see inspiré des slides de Robert Sedgewick
     */
-   Node* put(Node* node, const std::string& word, size_t idx) {
-      char c = word.at(idx);
-
-      if (node == nullptr)
-         node = new Node(c);
-
-      if (c < node->character)
-         node->left = put(node->left, word, idx);
-      else if (c > node->character)
-         node->right = put(node->right, word, idx);
-      else if (idx < word.length() - 1)
-         node->middle = put(node->middle, word, idx+1);
-      else
-         node->value = true;
-
-      return restoreBalance(node);
-   }
-
-   // HELPER: Mise à jour de la hauteur d'un sous-arbre à partir des hauteurs de ses enfants
-   void updateNodeHeight(Node* node) {
-      node->nodeHeight = std::max(height(node->right), height(node->left)) + 1;
-   }
-
-   int balance(Node* node) {
-      if(node == nullptr)
-         return 0;
-
-      return height(node->left) - height(node->right);
-   }
-
-   Node* restoreBalance(Node* node) {
-      if(balance(node) < -1) {                  // left < right-1
-         if (balance(node->right) > 0)
-            node->right = rotateRight(node->right);
-         node = rotateLeft(node);
-      }
-      else if(balance(node) > 1) {              // left > right+1
-         if (balance(node->left) < 0)
-            node->left = rotateLeft(node->left);
-         node = rotateRight(node);
-      }
-      else {
-         updateNodeHeight(node);
-      }
-
-      return node;
-   }
-
-   int height(Node* node) {
-      if (node == nullptr)
-         return -1;
-
-      return node->nodeHeight;
-   }
+   Node* put(Node* node, const std::string& word, size_t idx);
 
 public:
-   bool contains(const std::string& word) const {
-      Node* node = get(root, word, 0);
-
-      if (node == nullptr)
-         return false;
-
-      return node->value;
-   }
-
-private:
-   Node* get(Node* node, const std::string& word, size_t idx) const {
-      if (node == nullptr)
-         return nullptr;
-
-      char c = word.at(idx);
-
-      if (c < node->character)
-         return get(node->left, word, idx);
-      else if (c > node->character)
-         return get(node->right, word, idx);
-      else if (idx < word.length() - 1)
-         return get(node->middle, word, idx+1);
-      else
-         return node;
-   }
+   /**
+    * Permet de vérifier si un mot se trouve dans le TST
+    *
+    * @param word Le mot à chercher dans le TST
+    * @returns true si le mot se trouve dans le TST, false sinon
+    * @see inspiré des slides de Robert Sedgewick
+    */
+   bool contains(const std::string& word) const;
 
 private:
-   //
-   // AVL: rotation droite avec mise à jour des tailles et hauteurs
-   //
-   Node* rotateRight(Node* x) {
-      Node* y = x->left;
-      x->left = y->right;
-      y->right = x;
+   /**
+    * Permet de chercher un mot dans le TST
+    *
+    * @param node Le noeud sur lequel commencer la recherche
+    * @param word Le mot à trouver dans le TST
+    * @param idx L'index de la lettre du mot en train d'être insérée
+    * @returns le premier noeud faisant partie du mot
+    * @see inspiré des slides de Robert Sedgewick
+    */
+   Node* get(Node* node, const std::string& word, size_t idx) const;
 
-      updateNodeHeight(x);
-      updateNodeHeight(y);
+private:
+   // Helpers
 
-      return y;
-   }
+   /**
+    * Permet de récupérer la hauteur du noeud node
+    *
+    * @param node Le noeud duquel on veut savoir la hauteur
+    * @returns la hauteur du sous-arbre de racine node
+    * @see inspiré de AVLTree.h
+    */
+   int height(Node* node);
 
-   //
-   // AVL: rotation gauche avec mise à jour des tailles et hauteurs
-   //
-   Node* rotateLeft(Node* x) {
-      Node* y = x->right;
-      x->right = y->left;
-      y->left = x;
+   /**
+    * Mise à jour de la hauteur d'un sous-arbre à partir des hauteurs de ses enfants
+    *
+    * @param node Le noeud duquel on veut mettre à jour la hauteur
+    * @see inspiré de AVLTree.h
+    */
+   void updateNodeHeight(Node* node);
 
-      updateNodeHeight(x);
-      updateNodeHeight(y);
+   /**
+    * Permet de calculer l'équilibre d'un noeud avec les hauteurs de ses enfants
+    *
+    * @param node Le noeud duquel on veut connaître l'équilibre
+    * @returns l'équilibre du noeud
+    * @see inspiré de AVLTree.h
+    */
+   int balance(Node* node);
 
-      return y;
-   }
+   /**
+    * Permet de ré-équilibrer le sous-arbre de racine node
+    *
+    * @param node Le noeud à ré-équilibrer
+    * @returns la nouvelle racine de ce sous-arbre
+    * @see inspiré de AVLTree.h
+    */
+   Node* restoreBalance(Node* node);
+
+   /**
+    * Rotation droite avec mise à jour des hauteurs
+    *
+    * @param x Le noeud sur lequel effectuer la rotation
+    * @returns la nouvelle racine du sous-arbre
+    * @see inspiré de AVLTree.h
+    */
+   Node* rotateRight(Node* x);
+
+   /**
+    * Rotation gauche avec mise à jour des hauteurs
+    *
+    * @param x Le noeud sur lequel effectuer la rotation
+    * @returns la nouvelle racine du sous-arbre
+    * @see inspiré de AVLTree.h
+    */
+   Node* rotateLeft(Node* x);
 };
 
 #endif
