@@ -55,7 +55,7 @@ public:
     * @param word Le mot dont les variantes doivent être générées
     * @return la liste des variantes correctes du mot
     */
-   std::list<std::string> variant1(std::string word) {
+   std::list<std::string> oneLetterLessVariants(std::string word) {
       std::string variant;
       std::list<std::string> variants;
 
@@ -80,7 +80,7 @@ public:
     * @param word Le mot dont les variantes doivent être générées
     * @return la liste des variantes correctes du mot
     */
-   std::list<std::string> variant2(std::string word) {
+   std::list<std::string> oneLetterMoreVariants(std::string word) {
       std::string variant;
       std::list<std::string> variants;
 
@@ -109,7 +109,7 @@ public:
     * @param word Le mot dont les variantes doivent être générées
     * @return la liste des variantes correctes du mot
     */
-   std::list<std::string> variant3(std::string word) {
+   std::list<std::string> oneLetterChangedVariants(std::string word) {
       std::string variant;
       std::list<std::string> variants;
 
@@ -138,7 +138,7 @@ public:
     * @param word Le mot dont les variantes doivent être générées
     * @return la liste des variantes correctes du mot
     */
-   std::list<std::string> variant4(std::string word) {
+   std::list<std::string> twoLettersSwappedVariants(std::string word) {
       std::string variant;
       std::list<std::string> variants;
 
@@ -246,10 +246,10 @@ private:
    // Tableau de fonctions génératrices de variantes orthographiques
    // Ajouter ici, et modifier la constante NBR_VARIANT_FUNCTIONS
    std::function<std::list<std::string>(std::string)> variantFunc[NBR_VARIANT_FUNCTIONS] = {
-      std::bind(&SpellCheck::variant1, this, std::placeholders::_1),
-      std::bind(&SpellCheck::variant2, this, std::placeholders::_1),
-      std::bind(&SpellCheck::variant3, this, std::placeholders::_1),
-      std::bind(&SpellCheck::variant4, this, std::placeholders::_1)
+      std::bind(&SpellCheck::oneLetterLessVariants,     this, std::placeholders::_1),
+      std::bind(&SpellCheck::oneLetterMoreVariants,     this, std::placeholders::_1),
+      std::bind(&SpellCheck::oneLetterChangedVariants,  this, std::placeholders::_1),
+      std::bind(&SpellCheck::twoLettersSwappedVariants, this, std::placeholders::_1)
    };
 };
 
