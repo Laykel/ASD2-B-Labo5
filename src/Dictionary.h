@@ -5,7 +5,7 @@
  * Created on 04.01.2019
  *
  * Description: Classe implémentant un dictionnaire dont le conteneur est générique.
- *              Le type 'Container' doit implémenter les fonctions insert() et
+ *              - Le type 'Container' doit implémenter les fonctions insert() et
  *              contains() avec un seul paramètre de type string.
  */
 

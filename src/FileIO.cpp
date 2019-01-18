@@ -5,6 +5,11 @@
  * Created on 04.01.2019
  *
  * Description: Définition de fonctions pour la lecture et l'écriture de fichiers.
+ *              - Pour chaque mot, nous le lisons, convertissons en minuscule,
+ *              retirons les caractères non autorisés, puis retirons tout apostrophe
+ *              en première ou dernière position du mot. Nous ne nous occupons pas
+ *              des traits d'union, qui seront supprimés à la fois dans le
+ *              dictionnaire et dans les mots du texte, pour garantir la cohérence.
  */
 
 #include "FileIO.h"

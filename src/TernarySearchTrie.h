@@ -4,7 +4,13 @@
  * Authors: Loris Gilliand, Mateo Tutic, Luc Wachter
  * Created on 03.01.2019
  *
- * Description: Classe implémentant les tries ternaires de recherche.
+ * Description: Classe implémentant les tries ternaires de recherche. Ce fichier
+ *              contient les déclarations de méthodes.
+ *              - Les méthodes d'insertion et de recherche sont fortement inspirée des
+ *              slides de Robert Sedgewick et Kevin Wayne sur les Ternary Search
+ *              Tries.
+ *              - Les méthodes d'équilibrage sont fortement inspirée du fichier
+ *              AVLTree.h de M. Cuisenaire.
  */
 
 #ifndef TERNARYSEARCHTRIE_H

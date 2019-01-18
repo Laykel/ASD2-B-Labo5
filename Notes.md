@@ -1,6 +1,6 @@
 ## Notes sur l'implémentation
 
-- Choix de `unordered_set` : nous avions besoin d'une table de symboles avec de très bonnes performances en insertion et en recherche. Les tables de hachage nous permettent de faire ces opérations en temps constants (amorti). C'est meilleur que ce que `set` peut nous proposer avec ses arbres binaire équilibrés.
+- Choix de `unordered_set` : nous avions besoin d'une table de symboles avec de très bonnes performances en insertion et en recherche. Les tables de hachage nous permettent de faire ces opérations en temps constant (amorti). C'est meilleur que ce que `set` peut nous proposer avec ses arbres binaires équilibrés.
 
 - On lit le dictionnaire de la même manière que le fichier d'entrée, pour prévoir le cas où un dictionnaire différent serait utilisé, avec des majuscules ou d'autres caractères.
 
