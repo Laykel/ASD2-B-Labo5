@@ -12,7 +12,6 @@
 
 #include <string>
 
-/* template <typename Type> */
 class TernarySearchTrie {
 private:
    // Élément (noeud) du Trie
@@ -85,19 +84,18 @@ private:
     * @param d
     * @returns ...
     */
-   Node* put(Node* node, const std::string& word, size_t d) {
-      char c = word.at(d);
+   Node* put(Node* node, const std::string& word, size_t idx) {
+      char c = word.at(idx);
 
-      if (node == nullptr) {
+      if (node == nullptr)
          node = new Node(c);
-      }
 
       if (c < node->character)
-         node->left = put(node->left, word, d);
+         node->left = put(node->left, word, idx);
       else if (c > node->character)
-         node->right = put(node->right, word, d);
-      else if (d < word.length() - 1)
-         node->middle = put(node->middle, word, d+1);
+         node->right = put(node->right, word, idx);
+      else if (idx < word.length() - 1)
+         node->middle = put(node->middle, word, idx+1);
       else
          node->value = true;
 
@@ -109,36 +107,36 @@ private:
       node->nodeHeight = std::max(height(node->right), height(node->left)) + 1;
    }
 
-   int balance(Node* x) {
-      if(x == nullptr)
+   int balance(Node* node) {
+      if(node == nullptr)
          return 0;
 
-      return height(x->left) - height(x->right);
+      return height(node->left) - height(node->right);
    }
 
-   Node* restoreBalance(Node* x) {
-      if(balance(x) < -1) // left < right-1
-      {
-         if (balance(x->right)>0)
-            x->right = rotateRight( x->right );
-         x = rotateLeft(x);
+   Node* restoreBalance(Node* node) {
+      if(balance(node) < -1) {                  // left < right-1
+         if (balance(node->right) > 0)
+            node->right = rotateRight(node->right);
+         node = rotateLeft(node);
       }
-      else if( balance(x) > 1) // left > right+1
-      {
-         if ( balance(x->left) < 0 )
-            x->left = rotateLeft( x->left );
-         x = rotateRight(x);
+      else if(balance(node) > 1) {              // left > right+1
+         if (balance(node->left) < 0)
+            node->left = rotateLeft(node->left);
+         node = rotateRight(node);
       }
-      else
-         updateNodeHeight(x);
+      else {
+         updateNodeHeight(node);
+      }
 
-      return x;
+      return node;
    }
 
-   int height(Node* x) {
-      if (x == nullptr)
+   int height(Node* node) {
+      if (node == nullptr)
          return -1;
-      return x->nodeHeight;
+
+      return node->nodeHeight;
    }
 
 public:
@@ -152,18 +150,18 @@ public:
    }
 
 private:
-   Node* get(Node* node, const std::string& word, size_t d) const {
+   Node* get(Node* node, const std::string& word, size_t idx) const {
       if (node == nullptr)
          return nullptr;
 
-      char c = word.at(d);
+      char c = word.at(idx);
 
       if (c < node->character)
-         return get(node->left, word, d);
+         return get(node->left, word, idx);
       else if (c > node->character)
-         return get(node->right, word, d);
-      else if (d < word.length() - 1)
-         return get(node->middle, word, d+1);
+         return get(node->right, word, idx);
+      else if (idx < word.length() - 1)
+         return get(node->middle, word, idx+1);
       else
          return node;
    }

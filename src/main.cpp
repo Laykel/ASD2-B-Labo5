@@ -17,13 +17,15 @@
 #include "Dictionary.h"
 #include "SpellCheck.h"
 
+#define DICTIONARY "data/dictionary.txt"
+
 using namespace std;
 
 // Définition de la structure de données à utiliser pour le dictionnaire
-//using dictionaryType = StringHashTable;
-using dictionaryType = TernarySearchTrie;
+using dictionaryType = StringHashTable;
+/* using dictionaryType = TernarySearchTrie; */
 
-// Teste le temps de chargement du dictionnaire
+// Teste le temps de chargement du dictionnaire, puis le retourne
 // Affiche le temps de chargement en microsecondes
 Dictionary<dictionaryType> testDictionary(string dictionaryFile) {
    chrono::high_resolution_clock::time_point t1, t2;
@@ -44,7 +46,7 @@ Dictionary<dictionaryType> testDictionary(string dictionaryFile) {
 
 // Utilise les classes mises en place pour tester correcteur orthographique
 // Affiche le temps de correction en microsecondes
-void testSpellCheck(Dictionary<dictionaryType> dict, string textFile, string outputFile) {
+void testSpellCheck(const Dictionary<dictionaryType>& dict, string textFile, string outputFile) {
    chrono::high_resolution_clock::time_point t1, t2;
 
    // Moment avant correction
@@ -56,7 +58,9 @@ void testSpellCheck(Dictionary<dictionaryType> dict, string textFile, string out
    t2 = chrono::high_resolution_clock::now();
 
    // Affichage du temps de correction en millisecondes
-   cout << chrono::duration_cast<chrono::milliseconds>(t2 - t1).count()
+   cout << chrono::duration_cast<chrono::microseconds>(t2 - t1).count()
+        << "us" << " ~= "
+        << chrono::duration_cast<chrono::milliseconds>(t2 - t1).count()
         << "ms" << endl
         << sc.getMisspelledWords().size() << " mots mal orthographiés." << endl;
 }
@@ -67,7 +71,7 @@ int main() {
    cout << "==============================================" << endl;
    cout << "Dictionnaire (706824 mots) : ";
    // Afficher le temps de chargement du dictionnaire et le retourner
-   Dictionary<dictionaryType> dict = testDictionary("data/dictionary.txt");
+   Dictionary<dictionaryType> dict = testDictionary(DICTIONARY);
    cout << endl;
 
    // Test de la correction orthographique
