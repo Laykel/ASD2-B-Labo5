@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="iso-8859-15" standalone="no"?>
+<classDiagram>
+  <diagramElements defaultViewEntities="ALL" defaultViewEnum="true" defaultViewMethods="TYPE_AND_NAME" defaultVisibleTypes="true" informations="" name="ASD2-Labo5">
+    <inheritance id="5443" innerClass="true">
+      <child>5441</child>
+      <parent>4394</parent>
+    </inheritance>
+    <entity entityType="CLASS" id="5441" isAbstract="false" name="Node" visibility="PUBLIC">
+      <attribute const="false" defaultValue="" isStatic="false" name="character" type="char" visibility="PRIVATE"/>
+      <attribute const="false" defaultValue="" isStatic="false" name="value" type="bool" visibility="PRIVATE"/>
+      <attribute const="false" defaultValue="" isStatic="false" name="left" type="Node*" visibility="PRIVATE"/>
+      <attribute const="false" defaultValue="" isStatic="false" name="right" type="Node*" visibility="PRIVATE"/>
+      <attribute const="false" defaultValue="" isStatic="false" name="middle" type="Node*" visibility="PRIVATE"/>
+      <attribute const="false" defaultValue="" isStatic="false" name="nodeHeight" type="int" visibility="PRIVATE"/>
+      <method is-constructor="true" isAbstract="false" isStatic="false" name="Node" returnType="" view="DEFAULT" visibility="PUBLIC">
+        <variable const="false" name="c" type="char"/>
+      </method>
+    </entity>
+    <inheritance id="4396">
+      <child>4393</child>
+      <parent>4395</parent>
+    </inheritance>
+    <association aggregation="NONE" direction="BIDIRECTIONAL" id="4397" name="dict">
+      <role componentId="4391" name="" visibility="PRIVATE">
+        <multiplicity>
+          <min>0</min>
+          <max>2147483647</max>
+        </multiplicity>
+      </role>
+      <role componentId="4392" name="" visibility="PRIVATE">
+        <multiplicity>
+          <min>1</min>
+          <max>1</max>
+        </multiplicity>
+      </role>
+    </association>
+    <association aggregation="NONE" direction="BIDIRECTIONAL" id="4406" name="dict">
+      <role componentId="4392" name="" visibility="PRIVATE">
+        <multiplicity>
+          <min>0</min>
+          <max>2147483647</max>
+        </multiplicity>
+      </role>
+      <role componentId="4393" name="" visibility="PRIVATE">
+        <multiplicity>
+          <min>1</min>
+          <max>1</max>
+        </multiplicity>
+      </role>
+    </association>
+    <association aggregation="NONE" direction="BIDIRECTIONAL" id="4411" name="dict">
+      <role componentId="4392" name="" visibility="PRIVATE">
+        <multiplicity>
+          <min>0</min>
+          <max>2147483647</max>
+        </multiplicity>
+      </role>
+      <role componentId="4394" name="" visibility="PRIVATE">
+        <multiplicity>
+          <min>1</min>
+          <max>1</max>
+        </multiplicity>
+      </role>
+    </association>
+    <entity entityType="CLASS" id="4391" isAbstract="false" name="SpellCheck" visibility="PUBLIC">
+      <attribute const="false" defaultValue="" isStatic="false" name="misspelled" type="list&lt;string&gt;" visibility="PRIVATE"/>
+      <attribute const="false" defaultValue="" isStatic="false" name="allowedCharacters" type="string" visibility="PRIVATE"/>
+      <attribute const="false" defaultValue="" isStatic="false" name="variantFunc" type="function[]" visibility="PRIVATE"/>
+      <method is-constructor="true" isAbstract="false" isStatic="false" name="SpellCheck" returnType="" view="DEFAULT" visibility="PUBLIC">
+        <variable const="false" name="dict" type="Dictionary"/>
+        <variable const="false" name="textFile" type="string"/>
+      </method>
+      <method isAbstract="false" isStatic="false" name="getMisspelledWords" returnType="list&lt;string&gt;" view="DEFAULT" visibility="PUBLIC"/>
+      <method isAbstract="false" isStatic="false" name="oneLetterLessVariants" returnType="list&lt;string&gt;" view="DEFAULT" visibility="PUBLIC">
+        <variable const="false" name="word" type="string"/>
+      </method>
+      <method isAbstract="false" isStatic="false" name="oneLetterMoreVariants" returnType="list&lt;string&gt;" view="DEFAULT" visibility="PUBLIC">
+        <variable const="false" name="word" type="string"/>
+      </method>
+      <method isAbstract="false" isStatic="false" name="oneLetterChangedVariants" returnType="list&lt;string&gt;" view="DEFAULT" visibility="PUBLIC">
+        <variable const="false" name="word" type="int"/>
+      </method>
+      <method isAbstract="false" isStatic="false" name="twoLettersSwappedVariants" returnType="list&lt;string&gt;" view="DEFAULT" visibility="PUBLIC">
+        <variable const="false" name="word" type="string"/>
+      </method>
+      <method isAbstract="false" isStatic="false" name="writeToFile" returnType="void" view="DEFAULT" visibility="PUBLIC">
+        <variable const="false" name="filename" type="int"/>
+      </method>
+      <method isAbstract="false" isStatic="false" name="findMisspelledWords" returnType="void" view="DEFAULT" visibility="PRIVATE">
+        <variable const="false" name="filename" type="string"/>
+      </method>
+      <method isAbstract="false" isStatic="false" name="generateAllVariants" returnType="list&lt;string&gt;" view="DEFAULT" visibility="PRIVATE">
+        <variable const="false" name="word" type="int"/>
+      </method>
+    </entity>
+    <entity entityType="CLASS" id="4392" isAbstract="false" name="Dictionary" visibility="PUBLIC">
+      <method is-constructor="true" isAbstract="false" isStatic="false" name="Dictionary" returnType="" view="DEFAULT" visibility="PUBLIC">
+        <variable const="false" name="filename" type="string"/>
+      </method>
+      <method isAbstract="false" isStatic="false" name="contains" returnType="bool" view="DEFAULT" visibility="PUBLIC"/>
+    </entity>
+    <entity entityType="CLASS" id="4393" isAbstract="false" name="StringHashTable" visibility="PUBLIC">
+      <method isAbstract="false" isStatic="false" name="contains" returnType="bool" view="DEFAULT" visibility="PUBLIC"/>
+    </entity>
+    <entity entityType="CLASS" id="4394" isAbstract="false" name="TernarySearchTry" visibility="PUBLIC">
+      <attribute const="false" defaultValue="" isStatic="false" name="root" type="Node*" visibility="PRIVATE"/>
+      <method is-constructor="true" isAbstract="false" isStatic="false" name="TernarySearchTry" returnType="" view="DEFAULT" visibility="PUBLIC"/>
+      <method is-constructor="true" isAbstract="false" isStatic="false" name="~TernarySearchTry" returnType="" view="DEFAULT" visibility="PUBLIC"/>
+      <method isAbstract="false" isStatic="false" name="deleteSubTree" returnType="void" view="DEFAULT" visibility="PRIVATE">
+        <variable const="false" name="node" type="Node*"/>
+      </method>
+      <method isAbstract="false" isStatic="false" name="insert" returnType="void" view="DEFAULT" visibility="PUBLIC">
+        <variable const="false" name="word" type="string"/>
+      </method>
+      <method isAbstract="false" isStatic="false" name="put" returnType="Node*" view="DEFAULT" visibility="PRIVATE">
+        <variable const="false" name="node" type="Node*"/>
+        <variable const="false" name="word" type="string"/>
+        <variable const="false" name="idx" type="size_t"/>
+      </method>
+      <method isAbstract="false" isStatic="false" name="contains" returnType="bool" view="DEFAULT" visibility="PUBLIC">
+        <variable const="false" name="word" type="int"/>
+      </method>
+      <method isAbstract="false" isStatic="false" name="get" returnType="Node*" view="DEFAULT" visibility="PRIVATE">
+        <variable const="false" name="node" type="Node*"/>
+        <variable const="false" name="word" type="string"/>
+        <variable const="false" name="idx" type="size_t"/>
+      </method>
+      <method isAbstract="false" isStatic="false" name="height" returnType="int" view="DEFAULT" visibility="PRIVATE">
+        <variable const="false" name="node" type="Node*"/>
+      </method>
+      <method isAbstract="false" isStatic="false" name="updateNodeHeight" returnType="void" view="DEFAULT" visibility="PRIVATE">
+        <variable const="false" name="node" type="Node*"/>
+      </method>
+      <method isAbstract="false" isStatic="false" name="balance" returnType="int" view="DEFAULT" visibility="PRIVATE">
+        <variable const="false" name="node" type="Node*"/>
+      </method>
+      <method isAbstract="false" isStatic="false" name="restoreBalance" returnType="Node*" view="DEFAULT" visibility="PRIVATE">
+        <variable const="false" name="node" type="Node*"/>
+      </method>
+      <method isAbstract="false" isStatic="false" name="rotateRight" returnType="Node*" view="DEFAULT" visibility="PRIVATE">
+        <variable const="false" name="x" type="Node*"/>
+      </method>
+      <method isAbstract="false" isStatic="false" name="rotateLeft" returnType="Node*" view="DEFAULT" visibility="PRIVATE">
+        <variable const="false" name="x" type="Node*"/>
+      </method>
+    </entity>
+    <entity entityType="CLASS" id="4395" isAbstract="false" name="unordered_set&lt;string&gt;" visibility="PUBLIC"/>
+  </diagramElements>
+  <umlView grid="10" name="Main view" open="true">
+    <relationView color="-12566464" relationId="4411">
+      <line>
+        <point>
+          <x>461</x>
+          <y>386</y>
+        </point>
+        <point>
+          <x>461</x>
+          <y>461</y>
+        </point>
+        <point>
+          <x>731</x>
+          <y>461</y>
+        </point>
+        <point>
+          <x>731</x>
+          <y>521</y>
+        </point>
+      </line>
+      <labelAssociation>
+        <x>600</x>
+        <y>465</y>
+        <w>24</w>
+        <h>16</h>
+      </labelAssociation>
+      <roleAssociation>
+        <x>465</x>
+        <y>390</y>
+        <w>0</w>
+        <h>16</h>
+      </roleAssociation>
+      <roleAssociation>
+        <x>735</x>
+        <y>499</y>
+        <w>0</w>
+        <h>16</h>
+      </roleAssociation>
+      <multipliciteAssociation>
+        <x>436</x>
+        <y>390</y>
+        <w>21</w>
+        <h>16</h>
+      </multipliciteAssociation>
+      <multipliciteAssociation>
+        <x>717</x>
+        <y>499</y>
+        <w>8</w>
+        <h>16</h>
+      </multipliciteAssociation>
+    </relationView>
+    <relationView color="-12566464" relationId="4406">
+      <line>
+        <point>
+          <x>391</x>
+          <y>386</y>
+        </point>
+        <point>
+          <x>391</x>
+          <y>461</y>
+        </point>
+        <point>
+          <x>231</x>
+          <y>461</y>
+        </point>
+        <point>
+          <x>231</x>
+          <y>521</y>
+        </point>
+      </line>
+      <labelAssociation>
+        <x>269</x>
+        <y>442</y>
+        <w>24</w>
+        <h>16</h>
+      </labelAssociation>
+      <roleAssociation>
+        <x>395</x>
+        <y>390</y>
+        <w>0</w>
+        <h>16</h>
+      </roleAssociation>
+      <roleAssociation>
+        <x>235</x>
+        <y>499</y>
+        <w>0</w>
+        <h>16</h>
+      </roleAssociation>
+      <multipliciteAssociation>
+        <x>365</x>
+        <y>391</y>
+        <w>21</w>
+        <h>16</h>
+      </multipliciteAssociation>
+      <multipliciteAssociation>
+        <x>217</x>
+        <y>499</y>
+        <w>8</w>
+        <h>16</h>
+      </multipliciteAssociation>
+    </relationView>
+    <relationView color="-12566464" relationId="4397">
+      <line>
+        <point>
+          <x>431</x>
+          <y>246</y>
+        </point>
+        <point>
+          <x>431</x>
+          <y>301</y>
+        </point>
+      </line>
+      <labelAssociation>
+        <x>435</x>
+        <y>265</y>
+        <w>24</w>
+        <h>16</h>
+      </labelAssociation>
+      <roleAssociation>
+        <x>435</x>
+        <y>250</y>
+        <w>0</w>
+        <h>16</h>
+      </roleAssociation>
+      <roleAssociation>
+        <x>435</x>
+        <y>279</y>
+        <w>0</w>
+        <h>16</h>
+      </roleAssociation>
+      <multipliciteAssociation>
+        <x>403</x>
+        <y>251</y>
+        <w>21</w>
+        <h>16</h>
+      </multipliciteAssociation>
+      <multipliciteAssociation>
+        <x>417</x>
+        <y>279</y>
+        <w>8</w>
+        <h>16</h>
+      </multipliciteAssociation>
+    </relationView>
+    <relationView color="-12566464" relationId="4396">
+      <line>
+        <point>
+          <x>181</x>
+          <y>521</y>
+        </point>
+        <point>
+          <x>181</x>
+          <y>461</y>
+        </point>
+        <point>
+          <x>91</x>
+          <y>461</y>
+        </point>
+        <point>
+          <x>91</x>
+          <y>316</y>
+        </point>
+      </line>
+    </relationView>
+    <relationView color="-12566464" relationId="5443">
+      <line>
+        <point>
+          <x>991</x>
+          <y>581</y>
+        </point>
+        <point>
+          <x>881</x>
+          <y>581</y>
+        </point>
+      </line>
+    </relationView>
+    <componentView color="-2079" componentID="4395" displayAttributes="false" displayDefault="false" displayMethods="false">
+      <geometry>
+        <x>10</x>
+        <y>280</y>
+        <w>150</w>
+        <h>35</h>
+      </geometry>
+    </componentView>
+    <componentView color="-2079" componentID="4394" displayAttributes="true" displayDefault="true" displayMethods="true">
+      <geometry>
+        <x>560</x>
+        <y>520</y>
+        <w>320</w>
+        <h>265</h>
+      </geometry>
+    </componentView>
+    <componentView color="-2079" componentID="4393" displayAttributes="true" displayDefault="true" displayMethods="true">
+      <geometry>
+        <x>150</x>
+        <y>520</y>
+        <w>150</w>
+        <h>70</h>
+      </geometry>
+    </componentView>
+    <componentView color="-2079" componentID="4392" displayAttributes="true" displayDefault="true" displayMethods="true">
+      <geometry>
+        <x>340</x>
+        <y>300</y>
+        <w>180</w>
+        <h>85</h>
+      </geometry>
+    </componentView>
+    <componentView color="-2079" componentID="4391" displayAttributes="true" displayDefault="true" displayMethods="true">
+      <geometry>
+        <x>280</x>
+        <y>10</y>
+        <w>340</w>
+        <h>235</h>
+      </geometry>
+    </componentView>
+    <componentView color="-2079" componentID="5441" displayAttributes="true" displayDefault="true" displayMethods="true">
+      <geometry>
+        <x>990</x>
+        <y>530</y>
+        <w>150</w>
+        <h>160</h>
+      </geometry>
+    </componentView>
+    <note color="-2079" content="FileIO pour les actions sur les fichiers partagées par les classes Dictionary et SpellCheck">
+      <noteGeometry>
+        <x>10</x>
+        <y>90</y>
+        <w>210</w>
+        <h>60</h>
+      </noteGeometry>
+    </note>
+  </umlView>
+</classDiagram>
