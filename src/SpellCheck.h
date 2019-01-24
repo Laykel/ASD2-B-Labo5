@@ -55,6 +55,7 @@ public:
     * @param word Le mot dont les variantes doivent être générées
     * @return la liste des variantes correctes du mot
     */
+   // O(N) dans la taille du mot jusqu'à O(N^2) (en fonction de erase)
    std::list<std::string> oneLetterLessVariants(std::string word) {
       std::string variant;
       std::list<std::string> variants;
@@ -80,6 +81,7 @@ public:
     * @param word Le mot dont les variantes doivent être générées
     * @return la liste des variantes correctes du mot
     */
+   // O(N * 27) dans la longueur du mot jusqu'à O(N * 27N) (en fonction de insert)
    std::list<std::string> oneLetterMoreVariants(std::string word) {
       std::string variant;
       std::list<std::string> variants;
@@ -109,6 +111,7 @@ public:
     * @param word Le mot dont les variantes doivent être générées
     * @return la liste des variantes correctes du mot
     */
+   // O(N * 27) dans la longueur du mot
    std::list<std::string> oneLetterChangedVariants(std::string word) {
       std::string variant;
       std::list<std::string> variants;
@@ -138,6 +141,7 @@ public:
     * @param word Le mot dont les variantes doivent être générées
     * @return la liste des variantes correctes du mot
     */
+   // O(N) dans la taille du mot
    std::list<std::string> twoLettersSwappedVariants(std::string word) {
       std::string variant;
       std::list<std::string> variants;
@@ -222,6 +226,7 @@ private:
     * @param word Le mot dont les variantes doivent être générées
     * @return un vecteur contenant toutes les variantes préfixées de leur numéro
     */
+   // O(4 * (complexité des 4 fonctions + N)) dans le nombre de variantes
    std::list<std::string> generateAllVariants(const std::string& word) {
       std::list<std::string> variants;
 

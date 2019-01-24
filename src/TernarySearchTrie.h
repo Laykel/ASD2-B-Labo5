@@ -68,6 +68,7 @@ public:
     * @param word Le mot à insérer
     * @see inspiré des slides de Robert Sedgewick
     */
+   // O(L + ln(N)) avec L la longueur du mot et N le nombre de mots dans le TST
    void insert(const std::string& word);
 
 private:
@@ -90,6 +91,8 @@ public:
     * @returns true si le mot se trouve dans le TST, false sinon
     * @see inspiré des slides de Robert Sedgewick
     */
+   // O(L + ln(N)) pour trouver le mot
+   // O(ln(N)) pour trouver qu'il n'y est pas
    bool contains(const std::string& word) const;
 
 private:

@@ -22,6 +22,7 @@ using namespace std;
 
 // Prédicat pour différencier les caractères appartenant à l'alphabet et
 // l'apostrophe de tous les autres caractères
+// O(1)
 bool isNotAlphabeticOrApostrophe(char c) {
    // Code ASCII des lettres minuscules : 97-122
    // Code ASCII de l'apostrophe : 39
@@ -33,19 +34,24 @@ bool isNotAlphabeticOrApostrophe(char c) {
 
 // Permet de nettoyer une string en la convertissant en minuscules et en lui
 // retirant les caractères non autorisés (voir isNotAlphabetic)
+// O(N) dans la longueur du mot
 string sanitize(string word) {
    // On convertit le mot en minuscules
+   // O(N) dans la longueur du mot
    for (size_t i = 0; i < word.length(); ++i) {
        word[i] = (char) tolower(word[i]);
    }
 
    // On retire tous les caractères qui ne sont pas alphabétiques ou un apostrophe
+   // Jusqu'à O(N) dans la longueur du mot
    word.erase(remove_if(word.begin(), word.end(), isNotAlphabeticOrApostrophe), word.end());
 
    // On retire les apostrophes avant et après le mot
    if (!word.empty() and word.at(0) == '\'')
+      // Jusqu'à O(N)
       word.erase(0, 1);
    if (!word.empty() and word.at(word.length() - 1) == '\'')
+      // Jusqu'à O(N)
       word.erase(word.length() - 1, 1);
 
    return word;
@@ -53,6 +59,8 @@ string sanitize(string word) {
 
 // Fonction de lecture de fichier mot par mot qui effectue l'opération de la
 // fonction passée en paramètre
+// O(N) dans le nombre de mots du fichiers * (complexité de l'expression lambda + sanitize - O(M) dans la longueur du mot)
+// (Souvent O(N^2))
 void readFile(const string& filename, function<void(std::string)> function) {
    // File stream sur le fichier
    ifstream df(filename);
